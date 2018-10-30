@@ -27,8 +27,13 @@ namespace BasicCoreWebApp.Application
 
         public async Task<StudentResponse> Handle(GetStudent request, CancellationToken cancellationToken)
         {
+            StudentResponse result = null;
             var student = await this.context.Set<Student>().FindAsync(request.Id);
-            return new StudentResponse { Name = student.Name, Age = student.Age, Id = student.Id };
+            if (student != null)
+            {
+                result = new StudentResponse { Name = student.Name, Age = student.Age, Id = student.Id };
+            }
+            return result;
         }
     }
 }

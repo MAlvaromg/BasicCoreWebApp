@@ -47,6 +47,7 @@ namespace BasicCoreWebApp
             {
                 app.UseHsts();
             }
+            //This should be in a Middleware
             app.Use(async (context, next) =>
             {
                 try

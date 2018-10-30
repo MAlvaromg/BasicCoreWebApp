@@ -1,7 +1,6 @@
 ﻿using BasicCoreWebApp.Application;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BasicCoreWebApp.Controllers
@@ -15,11 +14,18 @@ namespace BasicCoreWebApp.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet(Name = "GetStudent")]
+        [HttpGet("{id}", Name = "GetStudent")]
         public async Task<ActionResult> Get(int id)
         {
             var student = await this.mediator.Send(new GetStudent(id));
-            return Ok(student);
+            if (student != null)
+            {
+                return Ok(student);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -34,7 +40,7 @@ namespace BasicCoreWebApp.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
         }
     }

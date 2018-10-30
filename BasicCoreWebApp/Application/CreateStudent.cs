@@ -10,7 +10,9 @@ namespace BasicCoreWebApp.Application
     public class CreateStudent : IRequest<StudentResponse>
     {
         [Required]
+        [StringLength(Student.NameMaxLength)]
         public string Name { get; set; }
+        [GreaterOrEqualsThan(Student.MinAge)]
         public int Age { get; set; }
     }
 
