@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BasicCoreWebApp.Controllers
 {
     [Route("api/[controller]")]
-    public class StudentsController:Controller
+    public class StudentsController : Controller
     {
         private readonly IMediator mediator;
         public StudentsController(IMediator mediator)
@@ -15,10 +15,11 @@ namespace BasicCoreWebApp.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet(Name ="GetStudent")]
-        public ActionResult<IEnumerable<string>> Get(int id)
+        [HttpGet(Name = "GetStudent")]
+        public async Task<ActionResult> Get(int id)
         {
-            return new string[] { "created", id.ToString() };
+            var student = await this.mediator.Send(new GetStudent(id));
+            return Ok(student);
         }
 
         [HttpPost]

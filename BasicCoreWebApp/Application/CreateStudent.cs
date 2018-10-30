@@ -1,4 +1,5 @@
-﻿using BasicCoreWebApp.Domain;
+﻿using BasicCoreWebApp.DataAccess;
+using BasicCoreWebApp.Domain;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
@@ -15,20 +16,19 @@ namespace BasicCoreWebApp.Application
 
     public sealed class CreateStudentHandler : IRequestHandler<CreateStudent, StudentResponse>
     {
-        //student repository reference
-        //private readonly StudentRepository studentRepository;
-        public CreateStudentHandler()
+        //Demo purpose only, you should not be working directly with the context
+        private readonly BasicCoreWebAppDbContext context;
+        public CreateStudentHandler(BasicCoreWebAppDbContext context)
         {
-
+            this.context = context;
         }
 
-        public Task<StudentResponse> Handle(CreateStudent request, CancellationToken cancellationToken)
+        public async Task<StudentResponse> Handle(CreateStudent request, CancellationToken cancellationToken)
         {
             var student = Student.Create(request.Name, request.Age);
-            // await studentRepository.Add(student, cancellationToken)
-
-            //The use of the task is only because the async call to the repository is not implemented and its necessary to compile.
-            return Task.Run(() => new StudentResponse { Name = request.Name, Age = request.Age, Id = 7 });
+            await this.context.AddAsync(student, cancellationToken);
+            await this.context.SaveChangesAsync();
+            return new StudentResponse { Name = student.Name, Age = student.Age, Id = student.Id };
         }
     }
 }

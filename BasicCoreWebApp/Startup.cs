@@ -1,9 +1,11 @@
-﻿using BasicCoreWebApp.Domain;
+﻿using BasicCoreWebApp.DataAccess;
+using BasicCoreWebApp.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NJsonSchema;
@@ -28,6 +30,10 @@ namespace BasicCoreWebApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
             services.AddMediatR(typeof(Startup).Assembly);
+            services.AddScoped<BasicCoreWebAppDbContext, BasicCoreWebAppDbContext>();
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=BasicCoreWebApp;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<BasicCoreWebAppDbContext> (options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
