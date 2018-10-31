@@ -12,6 +12,7 @@ namespace BasicCoreWebApp.Application
         [Required]
         [StringLength(Student.NameMaxLength)]
         public string Name { get; set; }
+
         [GreaterOrEqualsThan(Student.MinAge)]
         public int Age { get; set; }
     }

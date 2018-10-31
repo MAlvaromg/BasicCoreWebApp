@@ -17,7 +17,7 @@ namespace BasicCoreWebApp.Domain
         //There is no public constructor
         private Student() { }
 
-        //The only way to create a new instance of my entity is using this method. I can ensure that this student will be validated and my app won't be in a inconsistent state at any time.
+        //The only way to create a new instance of this entity is using this method. I can ensure that this student will be validated, and my app won't be in an inconsistent state at any time.
         public static Student Create(string name, int age)
         {
             Validate(name, age);
