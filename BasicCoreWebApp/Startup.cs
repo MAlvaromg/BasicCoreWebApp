@@ -32,8 +32,8 @@ namespace BasicCoreWebApp
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddScoped<BasicCoreWebAppDbContext, BasicCoreWebAppDbContext>();
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=BasicCoreWebApp;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<BasicCoreWebAppDbContext> (options => options.UseSqlServer(connection));
+            var connection = Configuration["ConnectionStrings:DefaultConnection"];
+            services.AddDbContext<BasicCoreWebAppDbContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
