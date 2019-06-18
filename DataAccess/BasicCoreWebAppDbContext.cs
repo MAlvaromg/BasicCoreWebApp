@@ -1,7 +1,7 @@
-﻿using BasicCoreWebApp.Domain;
+﻿using Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace BasicCoreWebApp.DataAccess
+namespace DataAccess
 {
     public class BasicCoreWebAppDbContext: DbContext
     {
@@ -10,14 +10,6 @@ namespace BasicCoreWebApp.DataAccess
         public BasicCoreWebAppDbContext(DbContextOptions<BasicCoreWebAppDbContext> options)
     :       base(options)
         { }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BasicCoreWebApp;Trusted_Connection=true;MultipleActiveResultSets=true");
-        //    }
-        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,10 +1,9 @@
-﻿using BasicCoreWebApp.DataAccess;
-using BasicCoreWebApp.Domain;
+﻿using Application.Repositories;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BasicCoreWebApp.Application
+namespace Application
 {
     public class GetStudent : IRequest<StudentResponse>
     {
@@ -18,17 +17,16 @@ namespace BasicCoreWebApp.Application
 
     public sealed class GetStudentHandler : IRequestHandler<GetStudent, StudentResponse>
     {
-        //Demo purpose only, you should not be working directly with the context
-        private readonly BasicCoreWebAppDbContext context;
-        public GetStudentHandler(BasicCoreWebAppDbContext context)
+        private readonly IStudentsRepository studentsRepository;
+        public GetStudentHandler(IStudentsRepository studentsRepository)
         {
-            this.context = context;
+            this.studentsRepository = studentsRepository;
         }
 
         public async Task<StudentResponse> Handle(GetStudent request, CancellationToken cancellationToken)
         {
             StudentResponse result = null;
-            var student = await this.context.Set<Student>().FindAsync(request.Id);
+            var student = await this.studentsRepository.FindAsync(request.Id);
             if (student != null)
             {
                 result = new StudentResponse { Name = student.Name, Age = student.Age, Id = student.Id };

@@ -1,11 +1,12 @@
-﻿using BasicCoreWebApp.DataAccess;
-using BasicCoreWebApp.Domain;
+﻿using Application;
+using Application.Repositories;
+using Domain;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BasicCoreWebApp.Application
+namespace Application
 {
     public class CreateStudent : IRequest<StudentResponse>
     {
@@ -19,18 +20,17 @@ namespace BasicCoreWebApp.Application
 
     public sealed class CreateStudentHandler : IRequestHandler<CreateStudent, StudentResponse>
     {
-        //Demo purpose only, you should not be working directly with the context
-        private readonly BasicCoreWebAppDbContext context;
-        public CreateStudentHandler(BasicCoreWebAppDbContext context)
+        private readonly IStudentsRepository studentsRepository;
+        public CreateStudentHandler(IStudentsRepository studentsRepository)
         {
-            this.context = context;
+            this.studentsRepository = studentsRepository;
         }
 
         public async Task<StudentResponse> Handle(CreateStudent request, CancellationToken cancellationToken)
         {
             var student = Student.Create(request.Name, request.Age);
-            await this.context.AddAsync(student, cancellationToken);
-            await this.context.SaveChangesAsync();
+            await this.studentsRepository.AddAsync(student, cancellationToken);
+            await this.studentsRepository.SaveChangesAsync();
             return new StudentResponse { Name = student.Name, Age = student.Age, Id = student.Id };
         }
     }

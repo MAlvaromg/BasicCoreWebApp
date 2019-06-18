@@ -1,4 +1,4 @@
-﻿using BasicCoreWebApp.Application;
+﻿using Application;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

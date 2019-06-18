@@ -1,4 +1,4 @@
-﻿using BasicCoreWebApp.Domain;
+﻿using Domain;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

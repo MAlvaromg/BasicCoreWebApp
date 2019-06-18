@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BasicCoreWebApp.Application
+namespace Application
 {
     public class GreaterOrEqualsThanAttribute : ValidationAttribute
     {

@@ -1,5 +1,8 @@
-﻿using BasicCoreWebApp.DataAccess;
-using BasicCoreWebApp.Domain;
+﻿using Application;
+using Application.Repositories;
+using DataAccess;
+using DataAccess.Repositories;
+using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,8 +32,9 @@ namespace BasicCoreWebApp
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
-            services.AddMediatR(typeof(Startup).Assembly);
+            services.AddMediatR(typeof(CreateStudent).Assembly);
             services.AddScoped<BasicCoreWebAppDbContext, BasicCoreWebAppDbContext>();
+            services.AddScoped<IStudentsRepository, StudentsRepository>();
 
             var connection = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<BasicCoreWebAppDbContext>(options => options.UseSqlServer(connection));

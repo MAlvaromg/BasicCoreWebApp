@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicCoreWebApp.Domain
+namespace Domain
 {
     public class DomainException : Exception
     {
