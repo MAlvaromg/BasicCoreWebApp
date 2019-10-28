@@ -31,6 +31,7 @@ namespace BasicCoreWebApp
             services.AddSwagger();
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddScoped<BasicCoreWebAppDbContext, BasicCoreWebAppDbContext>();
+            services.AddApplicationInsightsTelemetry();
 
             var connection = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<BasicCoreWebAppDbContext>(options => options.UseSqlServer(connection));
