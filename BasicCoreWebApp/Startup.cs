@@ -76,6 +76,8 @@ namespace BasicCoreWebApp
             {
                 settings.GeneratorSettings.DefaultPropertyNameHandling =
                     PropertyNameHandling.CamelCase;
+                //settings.DocExpansion = "full";
+                //settings.OAuth2Client = new OAuth2ClientSettings();
             });
             app.UseMvc();
         }
