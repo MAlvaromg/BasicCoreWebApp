@@ -23,7 +23,8 @@
       "metadata": {
         "description": "The SKU of App Service Plan."
       }
-    },
+    }
+  },
   "variables": {
     "appServicePlanPortalName": "[concat('AppServicePlan-', parameters('webAppName'))]"
   },
