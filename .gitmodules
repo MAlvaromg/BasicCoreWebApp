@@ -1,0 +1,4 @@
+[submodule "RemoteDevTour"]
+	path = RemoteDevTour
+	url = https://github.com/MAlvaromg/RemoteDevTour.git
+	branch = master
